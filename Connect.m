@@ -1,0 +1,1 @@
+myLego = ConnectBrick('CHPY');
