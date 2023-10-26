@@ -46,36 +46,31 @@ moving = 1;
                             myLego.MoveMotor('A', 0)
                             pause(2);
 
-                        
-                         else if (distance < 15)
-                         myLego.StopMotor('A');
-                          % turn right
-                          pause(1);
-                          myLego.MoveMotor('B', 90);
-                          distance = myLego.UltrasonicDist(4);
-                          myyLego.GyroCalibrate(3);
-                          while (angle < 91)
-                          if (distance > 50)
-                          myLego.StopMotor('B');
-                          myLego.MoveMotor('A',75);
-                          
-                          myLego.GyroCalibrate(3);
-                          else
-                          while (angle < 181)
-                          myLego.MoveMotor('B',-90);
-                          %rotate until 180 degress to the left%
-                          distance = myLego.UltrasonicDist(3);
-                          if (distance > 50)
-                          myLego.StopMotor('B');
-                          myLego.MoveMotor('A',75);
-                          end
-                          
-                          
-                          disp(distance);
-                          pause(0.5);
-                          distance = brick.UltrasonicDist(3);
-                          disp(distance);
 
+                        while 1
+                        fridistance = myLego.UltrasonicDist(1);
+
+                         if (distance <= 10.16)                   
+                         myLego.MoveMotorAngleRel('A', 20, -495, 'Coast');
+                         myLego.WaitForMotor('A');
+                          elseif (distance > 10.16)
+                          myLego.MoveMotor('B',75);
+                          myLego.MoveMotor('A',75);
+                          pause(1);
+                          elseif (distance <= 10.16)
+                          myLego.MoveMotorAngleRel('B', 20, 495, 'Coast'); 
+                         myLego.WaitForMotor('B');
+                         myLego.MoveMotorAngleRel('B', 20, -495, 'Coast'); 
+                         myLego.WaitForMotor('B');
+                         end
+                         end
+                         
+                         
+
+                         
+                          
+                          
+                          
                           
                           
                     
