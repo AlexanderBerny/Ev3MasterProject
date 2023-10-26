@@ -37,12 +37,74 @@ moving = 1;
                         else if (255 > fDistance > 20 && color == 2 )
                             myLego.StopMotor('A')
                             moving = 0;
-                        
+                            % switch to remote control %
+                        else if (255 > fDistance > 20 && color == 4 )
+                            myLego.StopMotor('A')
+                            moving = 0;
+                            % switch to remote control %
                         else if (255 > fDistance > 20 && color == 5)
                             myLego.MoveMotor('A', 0)
                             pause(2);
 
-                        else if (fDistance )
+                        
+                         else if (distance < 15)
+                         myLego.StopMotor('A');
+                          % turn right
+                          pause(1);
+                          myLego.MoveMotor('B', 90);
+                          distance = myLego.UltrasonicDist(4);
+                          myyLego.GyroCalibrate(3);
+                          while (angle < 91)
+                          if (distance > 50)
+                          myLego.StopMotor('B');
+                          myLego.MoveMotor('A',75);
+                          
+                          myLego.GyroCalibrate(3);
+                          else
+                          while (angle < 181)
+                          myLego.MoveMotor('B',-90);
+                          %rotate until 180 degress to the left%
+                          distance = myLego.UltrasonicDist(3);
+                          if (distance > 50)
+                          myLego.StopMotor('B');
+                          myLego.MoveMotor('A',75);
+                          end
+                          
+                          
+                          disp(distance);
+                          pause(0.5);
+                          distance = brick.UltrasonicDist(3);
+                          disp(distance);
+
+                          
+                          
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                  
+                    
+                    
+
+                    
+                    
+                    
+                         
+                    
+                         
+
+
+                   
+                   
+                    
+                    
+                    
+                    
+                    
+
 
                     
 
