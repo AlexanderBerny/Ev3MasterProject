@@ -8,15 +8,16 @@
 global key
 InitKeyboard();
 myLego.GyroCalibrate(3);
+pause('on');
+myLego.SetColorMode(3, 2);
+color = myLego.ColorCode(3);
+b = true;
 
-moving = 1;
-f
     while 1
         pause(0.1);
-        angle = myLego.GyroAngle(3);
-        color = myLego.ColorCode(2);
-        fDistance = myLego.UltrasonicDist(4);
-        rDistance = myLego.UltrasonicDist(4);
+        %color = myLego.ColorCode(3);
+        %fDistance = myLego.UltrasonicDist(4);
+        %rDistance = myLego.UltrasonicDist(4);
 
             switch key
 
@@ -30,41 +31,86 @@ f
                         rDistance = myLego.UltrasonicDist(4);
 
                     %color check
-                        if (255 > fDistance > 20 && color == 0 )%unknown
-                            myLego.MoveMotor('A', 75);
-                            disp(fDistance);
-                        
-                        else if (255 > fDistance > 20 && color == 2 )%blue-pickup
-                            myLego.StopMotor('A')
-                            moving = 0;
-                            % switch to remote control %
-                        else if (255 > fDistance > 20 && color == 4 )%yellow-drop off
-                            myLego.StopMotor('A')
-                            moving = 0;
-                            % switch to remote control %
-                        else if (255 > fDistance > 20 && color == 5)%red-stop 2 seconds
-                            myLego.MoveMotor('A', 0)
+
+                        while b
+                        myLego.MoveMotor('AB',-10);
+                        color = myLego.ColorCode(3);
+                        display(color);
+                            if (color == 2)
+                                %blue case AKA pick-up
+                                %beep 2x
+                                myLego.playTone(100,700,750);
+                                pause(1);
+                                myLego.playTone(100,700,750);
+                                %swtich to manual
+                            else if (color == 3)
+                                %green case AKA end
+                                %stop & beep 3x
+                                myLego.StopMotor('AB');
+                                myLego.playTone(100,700,750);
+                                pause(1);
+                                myLego.playTone(100,700,750);
+                                pause(1);
+                                myLego.playTone(100,700,750);
+                                b = false;
+                            else if (color == 4)
+                                %yellow case AKA drop off
+                                %switch to remote control
+                            else if (color == 5)
+                                %red case AKA stop light
+                                %stop 2 second
+                                myLego.MoveMotor('AB',0);
+                                pause(2);
+                                myLego.MoveMotor('AB',-10);
+                            end
+                            end
+                            end
+                            end
                             pause(2);
-                        else if (255> fDistance > 20 && color ==3) %green- end trip
-                            myLego.MoveMotor('')
+                        end
                             
                         while 1
-                        fridistance = myLego.UltrasonicDist(1);
+                        frdistance = myLego.UltrasonicDist(1);
+                        ridistance = myLego.UltrasonicDist(2);
+                        color = myLego.ColorCode(3);
 
-                         if (distance <= 10.16)                   
-                         myLego.MoveMotorAngleRel('A', 20, -495, 'Coast');
-                         myLego.WaitForMotor('A');
-                          elseif (distance > 10.16)
-                          myLego.MoveMotor('B',75);
-                          myLego.MoveMotor('A',75);
-                          pause(1);
-                          elseif (distance <= 10.16)
-                          myLego.MoveMotorAngleRel('B', 20, 495, 'Coast'); 
-                         myLego.WaitForMotor('B');
-                         myLego.MoveMotorAngleRel('B', 20, -495, 'Coast'); 
-                         myLego.WaitForMotor('B');
-                         end
-                         end
+
+                            if (fdistance <= 10.16 && rdistance >= 25.4)                   
+                                myLego.MoveMotorAngleRel('A', 20, -495, 'Coast');
+                                myLego.WaitForMotor('A');
+                                pause(2);
+                                end
+                            else if (fdistance <= 10.16 && rdistance < 25.4)
+                                myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
+                                myLego.WaitForMotor('B');
+                                end
+                            else if (rdistance >= 25.4);
+                                myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
+                                myLego.WaitForMotor('B');
+                            else if (fdistance >= 255 && rdistance >= 255)
+                                myLego.MoveMotor('A',100)
+                                myLego.MoveMotor('B',100)
+                                pause(2);
+                            end
+                            end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                          
                          
                          
