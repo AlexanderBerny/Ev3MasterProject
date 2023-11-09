@@ -1,3 +1,7 @@
+% Programmers: Alexander Bernickus, Irene Fahndrich, Siri Poluri, Joshua Coreas
+% Date: 11/9/2023
+% Objective: Remote Control for CHPY
+
 global key
 InitKeyboard();
 

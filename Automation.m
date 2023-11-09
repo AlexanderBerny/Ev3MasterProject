@@ -1,3 +1,7 @@
+% Programmers: Alexander Bernickus, Irene Fahndrich, Siri Poluri, Joshua Coreas
+% Date: 10/19/2023
+% Objective: Automation for CHPY
+
 global key
 InitKeyboard();
 

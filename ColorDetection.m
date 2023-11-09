@@ -1,3 +1,7 @@
+% Programmers: Alexander Bernickus, Irene Fahndrich, Siri Poluri, Joshua Coreas
+% Date: 11/2/2023
+% Objective: Color Detection for CHPY
+
 pause('on');
 myLego.SetColorMode(3, 2);
 color = myLego.ColorCode(3);
