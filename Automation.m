@@ -7,7 +7,6 @@
 
 global key
 InitKeyboard();
-myLego.GyroCalibrate(3);
 pause('on');
 myLego.SetColorMode(3, 2);
 color = myLego.ColorCode(3);
@@ -27,8 +26,8 @@ b = true;
 
                         angle = myLego.GyroAngle(3);
                         color = myLego.ColorCode(2);
-                        fDistance = myLego.UltrasonicDist(4);
-                        rDistance = myLego.UltrasonicDist(4);
+                        fdistance = myLego.UltrasonicDist(1);
+                        rdistance = myLego.UltrasonicDist(2);
 
                     %color check
 
@@ -67,32 +66,26 @@ b = true;
                             end
                             end
                             pause(2);
-                        end
+
                             
-                        while 1
-                        frdistance = myLego.UltrasonicDist(1);
-                        ridistance = myLego.UltrasonicDist(2);
-                        color = myLego.ColorCode(3);
-
-
+                            %turning
                             if (fdistance <= 10.16 && rdistance >= 25.4)                   
                                 myLego.MoveMotorAngleRel('A', 20, -495, 'Coast');
                                 myLego.WaitForMotor('A');
                                 pause(2);
-                                end
                             else if (fdistance <= 10.16 && rdistance < 25.4)
                                 myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
                                 myLego.WaitForMotor('B');
-                                end
                             else if (rdistance >= 25.4);
                                 myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
                                 myLego.WaitForMotor('B');
-                            else if (fdistance >= 255 && rdistance >= 255)
-                                myLego.MoveMotor('A',100)
-                                myLego.MoveMotor('B',100)
-                                pause(2);
-                            end
-                            end
+                                end
+                                end
+                                end
+
+                        end
+                            
+                        
 
 
 
