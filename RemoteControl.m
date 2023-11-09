@@ -60,9 +60,12 @@ while 1
             case 'l' %slow move right
                 myLego.MoveMotor('A', 25);
                 myLego.MoveMotor('B', -25);
-                pause(.2);%use .5 for when checking surroundings
+                pause(.2);%
                 myLego.StopMotor('A');
                 myLego.StopMotor('B');
+            
+            case 'b' %go back to automation program
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
 
         end
 end
