@@ -5,36 +5,60 @@ while 1
     pause(0.1);
         switch key
 
-            case 'w'
+            case 'w' %Move Forward
                 myLego.MoveMotor('AB', -75);
                 pause(0.3);
                 myLego.StopMotor('AB');
 
-            case 's'
+            case 's' %Move Back
                 myLego.MoveMotor('AB', 75);
                 pause(0.3);
                 myLego.StopMotor('AB');
 
-            case 'a'
+            case 'a'%left turn
                 myLego.MoveMotor('B', 85);
                 pause(0.4);
                 myLego.StopMotor('B');
                 
 
-            case 'd'
+            case 'd'%right turn
                 myLego.MoveMotor('A', 85);
-                pause(0.4);
+                myLego.MoveMotor('B', -85);
+                pause(.4);%use .5 for when checking surroundings
                 myLego.StopMotor('A');
+                myLego.StopMotor('B');
 
-            case 'uparrow'
-                myLego.MoveMotor('C', -100);
-                pause(0.4);
+            case 'uparrow' %Claw up
+                myLego.MoveMotor('C', 100);
+                pause(0.2);
                 myLego.StopMotor('C');
 
-            case 'downarrow'
-                myLego.MoveMotor('C', 100);
+            case 'downarrow' %Claw Down
+                myLego.MoveMotor('C', -100);
+                pause(0.2);
+                myLego.StopMotor('C');
+            
+            case 'i' %Slow move Forward
+                myLego.MoveMotor('AB', -25);
+                pause(0.3);
+                myLego.StopMotor('AB');
+
+            case 'j' %Slow move left
+                myLego.MoveMotor('B', 25);
                 pause(0.4);
-                myLego.StopMotor('C');  
+                myLego.StopMotor('B');
+
+            case 'k' %slow move back
+                myLego.MoveMotor('AB', 25);
+                pause(0.3);
+                myLego.StopMotor('AB');
+
+            case 'l' %slow move right
+                myLego.MoveMotor('A', 25);
+                myLego.MoveMotor('B', -25);
+                pause(.2);%use .5 for when checking surroundings
+                myLego.StopMotor('A');
+                myLego.StopMotor('B');
 
         end
 end
