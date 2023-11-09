@@ -1,149 +1,133 @@
-%go straight
-
-%check if walls infront
-    %if ==255 or <=3 
-        %too close
-        %move back
-
 global key
 InitKeyboard();
-pause('on');
-myLego.SetColorMode(3, 2);
-color = myLego.ColorCode(3);
-b = true;
 
-    while 1
-        pause(0.1);
-        %color = myLego.ColorCode(3);
-        %fDistance = myLego.UltrasonicDist(4);
-        %rDistance = myLego.UltrasonicDist(4);
+myLego.SetColorMode(3, 2); % set sensor 3 to colorCode
 
-            switch key
+startMoving = 1;
+numRightTurns = 0;
+numLeftTurns = 0;
 
-                case 'g'      %Begin automation with g
+while 1
+    pause(0.1);
+    distance = myLego.UltrasonicDist(1); % Get distance
+    color = myLego.ColorCode(3); % Get color 
+
+    
+    switch key
+        
+        case 'g' % Begin Automation
+            
+            while(startMoving == 1)
+                
+                distance = myLego.UltrasonicDist(1);
+                color = myLego.ColorCode(3); 
+                disp(distance);
+                disp(color);
+                
+                if (distance > 20 && color ~= 5 && color ~= 3)
                     
-                    while(moving == 1)
-
-                        angle = myLego.GyroAngle(3);
-                        color = myLego.ColorCode(2);
-                        fdistance = myLego.UltrasonicDist(1);
-                        rdistance = myLego.UltrasonicDist(2);
-
-                    %color check
-
-                        while b
-                        myLego.MoveMotor('AB',-10);
-                        color = myLego.ColorCode(3);
-                        display(color);
-                            if (color == 2)
-                                %blue case AKA pick-up
-                                %beep 2x
-                                myLego.playTone(100,700,750);
-                                pause(1);
-                                myLego.playTone(100,700,750);
-                                %swtich to manual
-                            else if (color == 3)
-                                %green case AKA end
-                                %stop & beep 3x
-                                myLego.StopMotor('AB');
-                                myLego.playTone(100,700,750);
-                                pause(1);
-                                myLego.playTone(100,700,750);
-                                pause(1);
-                                myLego.playTone(100,700,750);
-                                b = false;
-                            else if (color == 4)
-                                %yellow case AKA drop off
-                                %switch to remote control
-                            else if (color == 5)
-                                %red case AKA stop light
-                                %stop 2 second
-                                myLego.MoveMotor('AB',0);
-                                pause(2);
-                                myLego.MoveMotor('AB',-10);
-                            end
-                            end
-                            end
-                            end
-                            pause(2);
-
-                            
-                            %turning
-                            if (fdistance <= 10.16 && rdistance >= 25.4)                   
-                                myLego.MoveMotorAngleRel('A', 20, -495, 'Coast');
-                                myLego.WaitForMotor('A');
-                                pause(2);
-                            else if (fdistance <= 10.16 && rdistance < 25.4)
-                                myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
-                                myLego.WaitForMotor('B');
-                            else if (rdistance >= 25.4);
-                                myLego.MoveMotorAngleRel('B', 20, -495, 'Coast');
-                                myLego.WaitForMotor('B');
-                                end
-                                end
-                                end
-
-                        end
-                            
+                    myLego.MoveMotor('A', -50);
+                    myLego.MoveMotor('B', -50);
+                    numRightTurns = 0;
+                    numLeftTurns = 0;
+                    
+                    
+                    distance = myLego.UltrasonicDist(1);
+                    disp(distance);
+                    
+                elseif (distance > 20 && color == 3)
+                    myLego.StopMotor('A');
+                    myLego.StopMotor('B');
+                    startMoving = 0;
+                      
+     %touch cases
+                    
+                    
+                    
+                elseif (distance > 20 && color == 5)
+                    myLego.StopMotor('A');
+                    myLego.StopMotor('B');
+                    pause(3);
+                    myLego.MoveMotor('A', -50);
+                    myLego.MoveMotor('B', -50);
+                    pause(1);
+                    
+                    distance = myLego.UltrasonicDist(1);
+                
+                    
+                elseif (distance < 20)
+                    
+                    myLego.StopMotor('A');
+                    myLego.StopMotor('B');
+                    % turn right
+                    pause(1);
+                    myLego.MoveMotor('A', 30);
+                    myLego.MoveMotor('B', -25);
+                    pause(1);
+                    myLego.StopMotor('A');
+                    myLego.StopMotor('B');
+                    numRightTurns = 1;
+                    pause(0.5);
+                    distance = myLego.UltrasonicDist(1);
+                    disp(distance);
+                    pause(0.5);
+                    
+                    distance = myLego.UltrasonicDist(1);
+                    disp(distance);
+               
+                    
+                    if (distance < 20)
                         
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                         
-                         
-                         
-                         
-
-                         
-                          
-                          
-                          
-                          
-                          
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                  
-                    
-                    
-
-                    
-                    
-                    
-                         
-                    
-                         
-
-
+                        % turn to the left 180 degrees
+                        
+                        myLego.MoveMotor('A',  -50); 
+                        myLego.MoveMotor('B', 45); 
+                        pause(1.5);
+                        myLego.StopMotor('A');
+                        myLego.StopMotor('B');
+                        
+                        distance = myLego.UltrasonicDist(1);
+                        disp(distance);
                    
-                   
-                    
-                    
-                    
-                    
-                    
+                        if (distance < 20)
+                            
+                            % turn around
+                            pause(1);
+                            myLego.MoveMotor('A', 25);
+                            myLego.MoveMotor('B', -30);
+                            pause(1.5);
+                            myLego.StopMotor('A');
+                            myLego.StopMotor('B');
+                            
+                            
+                            distance = myLego.UltrasonicDist(1);
+                            startMoving = 0;
+                            
+                        end
+                        
+                    end
+                end
+            end
+            
+            
+            
+        case 'q'
+            
+            disp('Quitting');
+            myLego.StopMotor('A');
+            myLego.StopMotor('B');
+            break;
+            
+        case 'r'
+            
+            disp('Restart');
+            disp('Make sure to press ''g''');
+            startMoving = 1;
+            
+            
+    end % Switch
+    
+end % While
 
 
-                    
-
-                    
-                    
+CloseKeyboard();
