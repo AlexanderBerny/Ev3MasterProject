@@ -1,7 +1,7 @@
 global key
 InitKeyboard();
 
-myLego.SetColorMode(3, 2); % set sensor 3 to colorCode
+myLego.SetColorMode(3, 2);
 
 startMoving = 1;
 
@@ -86,7 +86,6 @@ while 1
                             pause(1.5);
                             myLego.StopMotor('A');
                             myLego.StopMotor('B');
-                            
                             
                             distance = myLego.UltrasonicDist(1);
                             startMoving = 0;
