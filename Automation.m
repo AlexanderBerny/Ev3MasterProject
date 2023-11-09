@@ -4,15 +4,12 @@ InitKeyboard();
 myLego.SetColorMode(3, 2); % set sensor 3 to colorCode
 
 startMoving = 1;
-numRightTurns = 0;
-numLeftTurns = 0;
 
 while 1
     pause(0.1);
     distance = myLego.UltrasonicDist(1); % Get distance
     color = myLego.ColorCode(3); % Get color 
 
-    
     switch key
         
         case 'g' % Begin Automation
@@ -27,11 +24,7 @@ while 1
                 if (distance > 20 && color ~= 5 && color ~= 3)
                     
                     myLego.MoveMotor('A', -50);
-                    myLego.MoveMotor('B', -50);
-                    numRightTurns = 0;
-                    numLeftTurns = 0;
-                    
-                    
+                    myLego.MoveMotor('B', -50);                                     
                     distance = myLego.UltrasonicDist(1);
                     disp(distance);
                     
@@ -39,11 +32,7 @@ while 1
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
                     startMoving = 0;
-                      
-     %touch cases
-                    
-                    
-                    
+                                       
                 elseif (distance > 20 && color == 5)
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
@@ -66,7 +55,6 @@ while 1
                     pause(1);
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
-                    numRightTurns = 1;
                     pause(0.5);
                     distance = myLego.UltrasonicDist(1);
                     disp(distance);
@@ -78,7 +66,7 @@ while 1
                     
                     if (distance < 20)
                         
-                        % turn to the left 180 degrees
+                        % turn to the left
                         
                         myLego.MoveMotor('A',  -50); 
                         myLego.MoveMotor('B', 45); 
@@ -108,9 +96,7 @@ while 1
                     end
                 end
             end
-            
-            
-            
+                    
         case 'q'
             
             disp('Quitting');
@@ -123,10 +109,8 @@ while 1
             disp('Restart');
             disp('Make sure to press ''g''');
             startMoving = 1;
-            
-            
-    end % Switch
-    
+                     
+    end % Switch   
 end % While
 
 
