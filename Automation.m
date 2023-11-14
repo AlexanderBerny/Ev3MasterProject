@@ -50,9 +50,11 @@ while 1
                     myLego.StopMotor('AB');
                     % turn left
                     pause(1)
+                    myLego.MoveMotor('AB', 50);
+                    pause(1);
                     myLego.MoveMotor('A', -65);
                     myLego.MoveMotor('B', 65);
-                    pause(1);
+                    pause(3);
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
                     pause(0.5);
@@ -66,10 +68,12 @@ while 1
                 elseif (front_distance < 20 && right_distance > 20)
                     myLego.StopMotor('AB');
                     pause(1);
+                    myLego.MoveMotor('AB', 25);
+                    pause(1);
                     %turn right
                     myLego.MoveMotor('A', 65);
                     myLego.MoveMotor('B', -65);
-                    pause(1);
+                    pause(3);
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
                     pause(0.5);
