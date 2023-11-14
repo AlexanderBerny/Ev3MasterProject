@@ -7,7 +7,7 @@ InitKeyboard();
 
 myLego.SetColorMode(3, 2);
 
-startMoving = 1;
+moving = 1;
 
 while 1
     pause(0.1);
@@ -18,40 +18,34 @@ while 1
         
         case 'g' % Begin Automation
             
-            while(startMoving == 1)
+            while(moving == 1)
                 
                 distance = myLego.UltrasonicDist(1);
                 color = myLego.ColorCode(3); 
                 disp(distance);
                 disp(color);
-                
-                if (distance > 20 && color ~= 5 && color ~= 3)
-                    
-                    myLego.MoveMotor('A', -50);
-                    myLego.MoveMotor('B', -50);                                     
+                %no obstacles
+                if (distance > 20 && color ~= 5 && color ~= 3) % 3 = Green, 5 = Red
+                    %go straight case
+                    myLego.MoveMotor('AB', -50);                                
                     distance = myLego.UltrasonicDist(1);
                     disp(distance);
-                    
+                %green case ~ end traversal    
                 elseif (distance > 20 && color == 3)
-                    myLego.StopMotor('A');
-                    myLego.StopMotor('B');
-                    startMoving = 0;
-                                       
+                    myLego.StopMotor('AB');
+                    moving = 0;
+                %red case ~ stop light                       
                 elseif (distance > 20 && color == 5)
-                    myLego.StopMotor('A');
-                    myLego.StopMotor('B');
-                    pause(3);
-                    myLego.MoveMotor('A', -50);
-                    myLego.MoveMotor('B', -50);
+                    myLego.StopMotor('AB', 'Brake');
+                    pause(2);
+                    myLego.MoveMotor('AB', -50);
                     pause(1);
-                    
                     distance = myLego.UltrasonicDist(1);
                 
-                    
+                %obstacle detected    
                 elseif (distance < 20)
                     
-                    myLego.StopMotor('A');
-                    myLego.StopMotor('B');
+                    myLego.StopMotor('AB');
                     % turn right
                     pause(1);
                     myLego.MoveMotor('A', 30);
@@ -92,7 +86,7 @@ while 1
                             myLego.StopMotor('B');
                             
                             distance = myLego.UltrasonicDist(1);
-                            startMoving = 0;
+                            moving = 0;
                             
                         end
                         
@@ -111,7 +105,7 @@ while 1
             
             disp('Restart');
             disp('Make sure to press ''g''');
-            startMoving = 1;
+            moving = 1;
                      
     end % Switch   
 end % While
