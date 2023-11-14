@@ -11,7 +11,8 @@ moving = 1;
 
 while 1
     pause(0.1);
-    distance = myLego.UltrasonicDist(1); % Get distance
+    front_distance = myLego.UltrasonicDist(1); % Get front_distance
+    right_distance = myLego.UltrasonicDist(2); % Get right_distance
     color = myLego.ColorCode(3); % Get color 
 
     switch key
@@ -20,49 +21,68 @@ while 1
             
             while(moving == 1)
                 
-                distance = myLego.UltrasonicDist(1);
+                front_distance = myLego.UltrasonicDist(1);
+                right_distance = myLego.UltrasonicDist(2);
                 color = myLego.ColorCode(3); 
-                disp(distance);
+                disp(front_distance);
+                disp(right_distance);
                 disp(color);
                 %no obstacles
-                if (distance > 20 && color ~= 5 && color ~= 3) % 3 = Green, 5 = Red
+                if (front_distance > 20 && color ~= 5 && color ~= 3) % 3 = Green, 5 = Red
                     %go straight case
                     myLego.MoveMotor('AB', -50);                                
-                    distance = myLego.UltrasonicDist(1);
-                    disp(distance);
+                    front_distance = myLego.UltrasonicDist(1);
+                    disp(front_distance);
                 %green case ~ end traversal    
-                elseif (distance > 20 && color == 3)
+                elseif (front_distance > 20 && color == 3)
                     myLego.StopMotor('AB');
                     moving = 0;
                 %red case ~ stop light                       
-                elseif (distance > 20 && color == 5)
+                elseif (front_distance > 20 && color == 5)
                     myLego.StopMotor('AB', 'Brake');
                     pause(2);
                     myLego.MoveMotor('AB', -50);
                     pause(1);
-                    distance = myLego.UltrasonicDist(1);
+                    front_distance = myLego.UltrasonicDist(1);
                 
                 %obstacle detected    
-                elseif (distance < 20)
-                    
+                elseif (front_distance < 20 && right_distance < 20)
                     myLego.StopMotor('AB');
-                    % turn right
-                    pause(1);
-                    myLego.MoveMotor('A', 30);
-                    myLego.MoveMotor('B', -25);
+                    % turn left
+                    pause(1)
+                    myLego.MoveMotor('A', -65);
+                    myLego.MoveMotor('B', 65);
                     pause(1);
                     myLego.StopMotor('A');
                     myLego.StopMotor('B');
                     pause(0.5);
-                    distance = myLego.UltrasonicDist(1);
-                    disp(distance);
+                    front_distance = myLego.UltrasonicDist(1);
+                    disp(front_distance);
                     pause(0.5);
                     
-                    distance = myLego.UltrasonicDist(1);
-                    disp(distance);
+                    front_distance = myLego.UltrasonicDist(1);
+                    disp(front_distance);
+
+                elseif (front_distance < 20 && right_distance > 20)
+                    myLego.StopMotor('AB');
+                    pause(1);
+                    %turn right
+                    myLego.MoveMotor('A', 65);
+                    myLego.MoveMotor('B', -65);
+                    pause(1);
+                    myLego.StopMotor('A');
+                    myLego.StopMotor('B');
+                    pause(0.5);
+                    front_distance = myLego.UltrasonicDist(1);
+                    disp(front_distance);
+                    pause(0.5);
+                    
+                    front_distance = myLego.UltrasonicDist(1);
+                    disp(front_distance);
+                    
                
                     
-                    if (distance < 20)
+                    if (front_distance < 20)
                         
                         % turn to the left
                         
@@ -72,10 +92,10 @@ while 1
                         myLego.StopMotor('A');
                         myLego.StopMotor('B');
                         
-                        distance = myLego.UltrasonicDist(1);
-                        disp(distance);
+                        front_distance = myLego.UltrasonicDist(1);
+                        disp(front_distance);
                    
-                        if (distance < 20)
+                        if (front_distance < 20)
                             
                             % turn around
                             pause(1);
@@ -85,7 +105,7 @@ while 1
                             myLego.StopMotor('A');
                             myLego.StopMotor('B');
                             
-                            distance = myLego.UltrasonicDist(1);
+                            front_distance = myLego.UltrasonicDist(1);
                             moving = 0;
                             
                         end
@@ -94,16 +114,16 @@ while 1
                 end
             end
                     
-        case 'q'
+        case 's'
             
-            disp('Quitting');
-            myLego.StopMotor('A');
-            myLego.StopMotor('B');
+            disp('CHPY has been stopped :(');
+            myLego.StopMotor('AB');
+            moving = 0;
             break;
             
         case 'r'
             
-            disp('Restart');
+            disp('Resurrecting CHPY :D');
             disp('Make sure to press ''g''');
             moving = 1;
                      
