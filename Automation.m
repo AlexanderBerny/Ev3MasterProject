@@ -2,7 +2,8 @@
 % Date: 10/19/2023
 % Objective: Automation for CHPY
 
-%Problems to Fix: Getting stuck on walls, and over turning right when it checks multiple times. 
+%Problems to Fix: Getting stuck on walls, over turning right when it checks multiple times, making a veriable to hold
+% 1 or 0 for if it should resoibd to green or not (so it doesnt stop prematurely).
 
 global key
 InitKeyboard();
