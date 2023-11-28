@@ -69,12 +69,12 @@ while 1
             
             case 'b' %go back to automation program blue is now 1
                 blue = 1;
-                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
 
             case 'y' %go back to automation program yellow and green are now 1
                 yellow = 1;
                 green = 1;
-                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
 
 
         end
