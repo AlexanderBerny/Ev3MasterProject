@@ -3,7 +3,7 @@
 % Objective: Automation for CHPY
 
 %Problems to Fix: Getting stuck on walls, over turning right when it checks multiple times, making a veriable to hold
-% 1 or 0 for if it should resoibd to green or not (so it doesnt stop prematurely).
+% 1 or 0 for if it should respond to green or not (so it doesnt stop prematurely).
 
 global key
 InitKeyboard();
@@ -11,6 +11,9 @@ InitKeyboard();
 myLego.SetColorMode(3, 2);
 
 moving = 1;
+green = 0;
+yellow = 0;
+blue = 0;
 
 while 1
     pause(0.1);
@@ -42,7 +45,7 @@ while 1
                         myLego.MoveMotor('B', -50);
                         pause(3);
                         myLego.MoveMotor('AB', -50);
-                        pause(1);
+                        pause(2);
                     
                     %go straight case
                     else
@@ -53,7 +56,7 @@ while 1
                     disp(right_distance);
                     end
                 %green case ~ end traversal    
-                elseif (front_distance > 20 && color == 3)
+                elseif (front_distance > 20 && color == 3 && green == 1)
                     myLego.StopMotor('AB');
                     moving = 0;
 
@@ -64,6 +67,16 @@ while 1
                     myLego.MoveMotor('AB', -50);
                     pause(1);
                     front_distance = myLego.UltrasonicDist(1);
+
+                elseif (front_distance > 20 && color == 2 && blue == 0)
+                    myLego.StopMotor('AB', 'Brake');
+                    run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\RemoteControl.m')
+                    blue = 1;
+
+                elseif (front_disctance > 20 && color == 4 && yellow == 0)
+                    myLego.StopMotor('AB', 'Brake');
+                    run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\RemoteControl.m')
+                    yellow = 1;
                 
                 %obstacle detected right sensor distance is less than 20 cm
                 elseif (front_distance < 20 && right_distance < 30)
