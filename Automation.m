@@ -11,9 +11,9 @@ InitKeyboard();
 myLego.SetColorMode(3, 2);
 
 moving = 1;
-green = 0;
-yellow = 0;
-blue = 0;
+green;
+blue;
+yellow;
 
 while 1
     pause(0.1);
@@ -35,7 +35,7 @@ while 1
                 disp(color);
 
                 %no obstacles
-                if (front_distance > 20 && color ~= 5 && color ~= 3 ) % 3 = Green, 5 = Red
+                if (front_distance > 20 && color ~= 5 && color ~= 3 && color ~= 2 && color ~= 4) % 3 = Green, 5 = Red
                     if(front_distance<right_distance)
                         myLego.StopMotor('AB', 'Brake');
                         pause(1);
@@ -68,15 +68,21 @@ while 1
                     pause(1);
                     front_distance = myLego.UltrasonicDist(1);
 
+                %blue case ~ Pickup switch to remote control
                 elseif (front_distance > 20 && color == 2 && blue == 0)
                     myLego.StopMotor('AB', 'Brake');
                     run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\RemoteControl.m')
+                    
                     blue = 1;
+                    front_distance = myLego.UltrasonicDist(1);
 
-                elseif (front_disctance > 20 && color == 4 && yellow == 0)
+                %yellow case ~ drop off switch to remote control
+                elseif (front_distance > 20 && color == 4 && yellow == 0 && blue == 1)
                     myLego.StopMotor('AB', 'Brake');
                     run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\RemoteControl.m')
                     yellow = 1;
+                    green = 1;
+                    front_distance = myLego.UltrasonicDist(1);
                 
                 %obstacle detected right sensor distance is less than 20 cm
                 elseif (front_distance < 20 && right_distance < 30)

@@ -21,8 +21,9 @@ while 1
 
             case 'a'%left turn
                 myLego.MoveMotor('B', 85);
+                myLego.MoveMotor('A', -85);
                 pause(0.4);
-                myLego.StopMotor('B');
+                myLego.StopMotor('AB');
                 
 
             case 'd'%right turn
@@ -49,8 +50,10 @@ while 1
 
             case 'j' %Slow move left
                 myLego.MoveMotor('B', 25);
+                myLego.MoveMotor('A', -25);
                 pause(0.4);
                 myLego.StopMotor('B');
+                myLego.StopMotor('A');
 
             case 'k' %slow move back
                 myLego.MoveMotor('AB', 25);
@@ -65,7 +68,14 @@ while 1
                 myLego.StopMotor('B');
             
             case 'b' %go back to automation program
-                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
+                blue = 1;
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
+
+            case 'y'
+                yellow = 1;
+                green = 1;
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
+
 
         end
 end
