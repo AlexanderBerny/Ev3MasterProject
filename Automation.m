@@ -36,7 +36,8 @@ while 1
 
                 %no obstacles
                 if (front_distance > 20 && color ~= 5 && color ~= 3 && color ~= 2 && color ~= 4) % 3 = Green, 5 = Red
-                    if(front_distance<right_distance)
+                    if(front_distance<right_distance && right_distance>30)
+                        %right case: 
                         myLego.StopMotor('AB', 'Brake');
                         pause(1);
                         myLego.MoveMotor('AB', -50);
@@ -45,8 +46,8 @@ while 1
                         myLego.MoveMotor('B', -50);
                         pause(3);
                         myLego.MoveMotor('AB', -50);
-                        pause(2);
-                    
+                        pause(1.65);
+
                     %go straight case
                     else
                     myLego.MoveMotor('AB', -50);                                

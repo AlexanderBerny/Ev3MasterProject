@@ -67,14 +67,14 @@ while 1
                 myLego.StopMotor('A');
                 myLego.StopMotor('B');
             
-            case 'b' %go back to automation program
+            case 'b' %go back to automation program blue is now 1
                 blue = 1;
-                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
 
-            case 'y'
+            case 'y' %go back to automation program yellow and green are now 1
                 yellow = 1;
                 green = 1;
-                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\Automation.m')
+                run('C:\Users\dapea\OneDrive\Documents\MATLAB\Masterproject\AutomationProto.m')
 
 
         end
